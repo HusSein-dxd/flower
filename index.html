@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>وردة اعتذار</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;500&display=swap">
+<style>
+/* Layout: one centered night-garden column. Heading above, tulip in the middle, birthday wish below. */
+:root {
+  --bg: #1d1020;
+  --bg-glow: #3a1840;
+  --ink: #fff0f4;
+  --muted: #d7b4c4;
+  --rose: #ff7aa6;
+  --rose-deep: #d23d74;
+  --leaf: #5aa479;
+  --gold: #ffd8a2;
+  --font-display: "Aref Ruqaa", "Amiri", "Noto Naskh Arabic", serif;
+  --font-body: "Tajawal", "Segoe UI", Tahoma, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  padding-block: 32px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  overflow-x: hidden;
+}
+.page {
+  position: relative;
+  max-width: 560px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 12% -20% 18% -20%;
+  background: radial-gradient(closest-side, var(--bg-glow), transparent 75%);
+  z-index: 0;
+  pointer-events: none;
+}
+.page > * { position: relative; z-index: 1; }
+
+h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 8.2vw, 3.2rem);
+  line-height: 1.5;
+  text-wrap: balance;
+  color: var(--ink);
+}
+.w {
+  display: inline-block;
+  animation: rise 0.9s cubic-bezier(.2,.7,.2,1) both;
+  animation-delay: calc(var(--i) * 0.2s + 0.3s);
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); filter: blur(5px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+
+.stage {
+  position: relative;
+  width: min(74vw, 290px);
+  margin-top: 4px;
+}
+.flower-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 24px;
+}
+.flower-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+svg.tulip { display: block; width: 100%; height: auto; overflow: visible; }
+
+.sway { transform-box: view-box; transform-origin: 120px 350px; animation: sway 5.5s ease-in-out 2.4s infinite; }
+@keyframes sway { 0%,100% { transform: rotate(-1.8deg); } 50% { transform: rotate(1.8deg); } }
+
+.stem { stroke-dasharray: 160; stroke-dashoffset: 0; animation: grow 1.4s ease-out both; }
+@keyframes grow { from { stroke-dashoffset: 160; } to { stroke-dashoffset: 0; } }
+.leaf { transform-box: view-box; animation: leafIn 1s ease-out both; }
+.leaf.l { transform-origin: 119px 320px; animation-delay: 0.9s; }
+.leaf.r { transform-origin: 121px 295px; animation-delay: 1.1s; }
+@keyframes leafIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.head { transform-box: view-box; transform-origin: 120px 215px; animation: bloom 1.8s cubic-bezier(.2,.8,.2,1) 1.2s both; }
+@keyframes bloom { from { transform: scale(0.12); opacity: 0; } 30% { opacity: 1; } to { transform: scale(1); opacity: 1; } }
+
+.pl, .pr { transform-box: view-box; transform-origin: 120px 215px; }
+.pl { animation: openL 1.9s ease-out 1.5s both; }
+.pr { animation: openR 1.9s ease-out 1.5s both; }
+@keyframes openL { from { transform: rotate(24deg); } to { transform: rotate(0); } }
+@keyframes openR { from { transform: rotate(-24deg); } to { transform: rotate(0); } }
+.pulse .pl { animation: nudgeL 1.1s ease-in-out; }
+.pulse .pr { animation: nudgeR 1.1s ease-in-out; }
+@keyframes nudgeL { 0%,100% { transform: rotate(0); } 45% { transform: rotate(-17deg); } }
+@keyframes nudgeR { 0%,100% { transform: rotate(0); } 45% { transform: rotate(17deg); } }
+
+.pc { transform-box: view-box; transform-origin: 120px 215px; animation: breathe 4s ease-in-out 3.4s infinite; }
+@keyframes breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+
+.spark { animation: twinkle 2.6s ease-in-out infinite; animation-delay: calc(var(--s) * 0.6s); fill: var(--gold); }
+@keyframes twinkle { 0%,100% { opacity: 0.15; } 50% { opacity: 0.95; } }
+
+.hint {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+  animation: rise 1s ease-out 3.4s both;
+}
+
+.wish { display: flex; flex-direction: column; align-items: center; gap: 6px; margin-top: 18px; }
+.wish .name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 7.4vw, 2.7rem);
+  line-height: 1.55;
+  text-wrap: balance;
+  background: linear-gradient(100deg, var(--gold), var(--rose), var(--gold));
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rise 1.1s ease-out 3.4s both, shimmer 6s linear 4.5s infinite;
+}
+@keyframes shimmer { to { background-position: -220% 0; } }
+.wish .bday {
+  margin: 0;
+  font-size: clamp(1.25rem, 5vw, 1.6rem);
+  font-weight: 500;
+  color: var(--ink);
+  animation: rise 1.1s ease-out 4s both;
+}
+
+/* falling petals (created on tap) */
+.fall {
+  position: absolute;
+  left: 50%;
+  top: 26%;
+  width: 14px;
+  height: 20px;
+  border-radius: 80% 0 80% 0;
+  background: linear-gradient(160deg, var(--rose), var(--rose-deep));
+  pointer-events: none;
+  opacity: 0;
+  animation: fall var(--d, 2.6s) ease-in forwards;
+}
+@keyframes fall {
+  0%   { opacity: 0; transform: translate(0, 0) rotate(0); }
+  12%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); }
+}
+
+/* drifting glow dots */
+.dust { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.dust i {
+  position: absolute;
+  bottom: -10px;
+  width: var(--sz);
+  height: var(--sz);
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0;
+  animation: drift var(--t) linear var(--dl) infinite;
+}
+@keyframes drift {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  15%  { opacity: 0.55; }
+  100% { transform: translate(var(--sx), -105vh); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .w, .stem, .leaf, .head, .pl, .pr, .pc, .sway, .spark, .hint, .wish .name, .wish .bday, .dust i { animation: none !important; }
+  .spark { opacity: 0.6; }
+  .dust { display: none; }
+}
+</style>
+
+</head>
+<body>
+<div class="dust" id="dust" aria-hidden="true"></div>
+
+<main class="page">
+  <h1 aria-label="وردة اعتذار عما بدر مني">
+    <span class="w" style="--i:0">وردة</span>
+    <span class="w" style="--i:1">اعتذار</span>
+    <span class="w" style="--i:2">عما</span>
+    <span class="w" style="--i:3">بدر</span>
+    <span class="w" style="--i:4">مني</span>
+  </h1>
+
+  <div class="stage" id="stage">
+    <button class="flower-btn" id="flower" type="button" aria-label="المسي الوردة">
+      <svg class="tulip" viewBox="0 0 240 360" role="img" aria-label="وردة توليب وردية" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gSide" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ff9dbb"/>
+            <stop offset="1" stop-color="#c93270"/>
+          </linearGradient>
+          <linearGradient id="gFront" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffb3cc"/>
+            <stop offset="0.55" stop-color="#ff6f9f"/>
+            <stop offset="1" stop-color="#d23d74"/>
+          </linearGradient>
+          <linearGradient id="gLeaf" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#7cc197"/>
+            <stop offset="1" stop-color="#3f8a60"/>
+          </linearGradient>
+        </defs>
+
+        <g class="sway">
+          <path class="stem" d="M120 348 C 118 305, 126 262, 120 214" fill="none" stroke="#5aa479" stroke-width="7" stroke-linecap="round"/>
+          <path class="leaf l" d="M119 322 C 80 318, 48 288, 40 242 C 80 250, 112 276, 119 322 Z" fill="url(#gLeaf)"/>
+          <path class="leaf r" d="M121 296 C 160 291, 192 263, 200 222 C 160 232, 128 256, 121 296 Z" fill="url(#gLeaf)"/>
+
+          <g class="head">
+            <path class="pl" d="M120 218 C 80 214, 62 168, 74 110 C 98 130, 117 160, 120 218 Z" fill="url(#gSide)"/>
+            <path class="pr" d="M120 218 C 160 214, 178 168, 166 110 C 142 130, 123 160, 120 218 Z" fill="url(#gSide)"/>
+            <g class="pc">
+              <path d="M120 226 C 86 218, 82 150, 120 90 C 158 150, 154 218, 120 226 Z" fill="url(#gFront)"/>
+              <path d="M120 104 C 104 140, 104 186, 118 214" fill="none" stroke="#fff" stroke-opacity="0.28" stroke-width="3" stroke-linecap="round"/>
+            </g>
+          </g>
+
+          <circle class="spark" style="--s:0" cx="52" cy="92" r="2.6"/>
+          <circle class="spark" style="--s:1" cx="190" cy="78" r="2.2"/>
+          <circle class="spark" style="--s:2" cx="30" cy="170" r="1.8"/>
+          <circle class="spark" style="--s:3" cx="208" cy="168" r="2.4"/>
+          <circle class="spark" style="--s:4" cx="120" cy="52" r="2"/>
+        </g>
+      </svg>
+    </button>
+  </div>
+
+  <p class="hint">المسي الوردة</p>
+
+  <div class="wish">
+    <p class="name">كل سنة وانتي طيبة ياسونا</p>
+    <p class="bday">وعيد ميلاد سعيد</p>
+  </div>
+</main>
+
+<script>
+(function () {
+  var flower = document.getElementById('flower');
+  var stage = document.getElementById('stage');
+  var dust = document.getElementById('dust');
+
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+
+  // drifting glow dots
+  for (var i = 0; i < 18; i++) {
+    var d = document.createElement('i');
+    d.style.left = rnd(0, 100) + '%';
+    d.style.setProperty('--sz', rnd(2, 5).toFixed(1) + 'px');
+    d.style.setProperty('--t', rnd(11, 20).toFixed(1) + 's');
+    d.style.setProperty('--dl', (-rnd(0, 18)).toFixed(1) + 's');
+    d.style.setProperty('--sx', rnd(-40, 40).toFixed(0) + 'px');
+    dust.appendChild(d);
+  }
+
+  var busy = false;
+  function burst() {
+    stage.classList.remove('pulse');
+    void stage.offsetWidth;
+    stage.classList.add('pulse');
+    if (!busy) {
+      busy = true;
+      setTimeout(function () { stage.classList.remove('pulse'); busy = false; }, 1200);
+    }
+    for (var n = 0; n < 12; n++) {
+      var p = document.createElement('span');
+      p.className = 'fall';
+      p.style.marginLeft = rnd(-26, 26).toFixed(0) + 'px';
+      p.style.setProperty('--dx', rnd(-130, 130).toFixed(0) + 'px');
+      p.style.setProperty('--dy', rnd(200, 330).toFixed(0) + 'px');
+      p.style.setProperty('--rot', rnd(-260, 260).toFixed(0) + 'deg');
+      p.style.setProperty('--d', rnd(2.0, 3.2).toFixed(2) + 's');
+      p.style.animationDelay = (n * 0.04).toFixed(2) + 's';
+      p.addEventListener('animationend', function (e) { e.target.remove(); });
+      stage.appendChild(p);
+    }
+  }
+  flower.addEventListener('click', burst);
+})();
+</script>
+
+
+</body>
+</html>
